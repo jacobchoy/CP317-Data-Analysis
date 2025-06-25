@@ -221,7 +221,6 @@ std::string Student::toString() const {
     if (!courses.empty()) {
         oss << std::fixed << std::setprecision(1);
         oss << "Overall Average: " << getOverallAverage() << "%\n"
-            << "GPA: " << getGPA() << "/4.0";
     }
     
     return oss.str();
