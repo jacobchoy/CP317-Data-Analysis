@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <map>
+#include "student.h"
+#include "course.h"
+
+int main(){
+    //open files for reading & writing
+    std:: ifstream name_file ("NameFile.txt");
+    std:: ifstream course_file ("CourseFile.txt");
+    std:: ofstream output_flle ("Output.txt");
+
+    //check if file is opened 
+    if (!name_file.is_open()){
+        std::cerr <<"Error: Could not open the name file" << std::endl;
+        return 1;
+    }
+    if (!course_file.is_open()){
+        std::cerr <<"Error: Could not open the course file" << std::endl;
+        return 1;
+    }
+
+    std:: map <std::string, Student> students;
+    std:: string line;
+    //read name file line by line
+    while (std:: getline(name_file, line)){
+        std:: stringstream ss(line);
+        std:: string id, first, last;
+
+        std:: getline(ss, id, ',');
+        std:: getline(ss,first,',');
+        std:: getline(ss,last,',');
+        students[id] = Student(id,first + " " + last);
+    }
+
+    //read course file line by line
+    while (std::getline(course_file, line)){
+        std::stringstream ss (line);
+        std:: string id, course, t1_str, t2_str, t3_str, exam_str;
+        double t1,t2,t3,exam;
+
+        std::getline(ss,id,',');
+        std::getline(ss,course,',');
+        std::getline(ss,t1_str, ',');
+        std::getline(ss,t2_str, ',');
+        std::getline(ss,t3_str, ',');
+        std::getline(ss, exam_str, ',');
+
+        //convert string to double
+        t1 = std::stod(t1_str);
+        t2 = std::stod(t2_str);
+        t3 = std::stod(t3_str);
+        exam = std::stod(exam_str);
+
+        //create course object
+        Course courseObj(course, t1, t2, t3, exam);
+
+        //add course to the correct student
+        if (students.find(id) != students.end()){
+            students[id].addCourse(courseObj);
+        }
+    }
+
+}
