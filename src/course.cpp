@@ -1,4 +1,3 @@
-// course.cpp - Simplified version with all errors fixed
 #include "course.h"
 #include <sstream>
 #include <iomanip>
@@ -107,7 +106,7 @@ float Course::calculateFinalGrade() const {
     float examPortion = finalExam * 0.40f;
     float finalGrade = testTotal + examPortion;
     
-    // Validate result (simple NaN check)
+    // Validate result
     if (finalGrade != finalGrade) {
         throw GradeException("Grade calculation resulted in invalid value for course: " + courseCode);
     }
