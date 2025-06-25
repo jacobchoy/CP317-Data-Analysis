@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include "course.h"
-#include "excpetions.h"
+#include "exceptions.h"
 
 
 class Student {
