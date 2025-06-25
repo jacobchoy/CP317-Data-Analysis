@@ -10,14 +10,14 @@ class ProjectException : public std:: runtime_error { //main class for exception
         explicit ProjectException(const std::string& message): std:: runtime_error("Project Error: " + message) {}
 };
 
-class FileException : public FileException { //file exception main 
+class FileException : public ProjectException { //file exception main 
     public: 
         explicit FileException(const std::string& message): ProjectException("File Error: " + message) {}
 };
 
 class CourseException : public ProjectException { //Invalid Course 
     public: 
-        explict CourseException(const std::string& message): ProjectException("Course is invalid: " + message) {}
+        explicit CourseException(const std::string& message): ProjectException("Course is invalid: " + message) {}
 };
 
 class GradeException : public ProjectException { //Invalid Grade 
@@ -37,54 +37,57 @@ class FileAccessException : public FileException { //cannot access file
 
 class ValidateStudentID : public ProjectException { //valid student id 
     public: 
-        explict ValidateStudentID(const std::string& message): ProjectException("This is an invalid student ID: " + message) {}
+        explicit ValidateStudentID(const std::string& message): ProjectException("This is an invalid student ID: " + message) {}
 };
 
 class ValidateName : public ProjectException { //valid student name 
     public:
-        explict ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
+        explicit ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
 };
 
 class CheckMaxCourses : public ProjectException { //Too many courses per student max=10
     public:
-        explict CheckMaxCourses(const std::string& message): ProjectException("Too many courses for student: " + message) {}
+        explicit CheckMaxCourses(const std::string& message): ProjectException("Too many courses for student: " + message) {}
 };
 
 class CourseAlreadyExists : public ProjectException { //This course already exists 
     public:
-        explict CourseAlreadyExists(const std::string& message): ProjectException("This course already exists: " + message) {}
+        explicit CourseAlreadyExists(const std::string& message): ProjectException("This course already exists: " + message) {}
 };
 
 class CourseInvalidGrade : public ProjectException { //Course has an invalid grade 
     public:
-        explict CourseInvalidGrade(const std::string& message): ProjectException("This course has an invalid grade: " + message) {}
+        explicit CourseInvalidGrade(const std::string& message): ProjectException("This course has an invalid grade: " + message) {}
 };
 
 class ValidCourseCode : public ProjectException { //Course code is invalid 
     public:
-        explict ValidCourseCode(const std::string& message): ProjectException("This course code is invalid: " + message) {}
+        explicit ValidCourseCode(const std::string& message): ProjectException("This course code is invalid: " + message) {}
 };
 
 class ValidTest1Grade : public ProjectException { //Test grade 1 is invalid 
     public:
-        explict ValidTest1Grade(const std::string& message): ProjectException("Test grade 1 is invalid: " + message) {}
+        explicit ValidTest1Grade(const std::string& message): ProjectException("Test grade 1 is invalid: " + message) {}
 };
 
 class ValidTest2Grade : public ProjectException { //Test grade 2 is invalid 
     public:
-        explict ValidTest2Grade(const std::string& message): ProjectException("Test grade 2 is invalid: " + message) {}
+        explicit ValidTest2Grade(const std::string& message): ProjectException("Test grade 2 is invalid: " + message) {}
 };
 
 class ValidTest3Grade : public ProjectException { //Test grade 3 is invalid 
     public:
-        explict ValidTest3Grade(const std::string& message): ProjectException("Test grade 3 is invalid: " + message) {}
+        explicit ValidTest3Grade(const std::string& message): ProjectException("Test grade 3 is invalid: " + message) {}
 };
 
 class ValidFinalExamGrade : public ProjectException { //Exam grade is invalid 
     public:
-        explict ValidFinalExamGrade(const std::string& message): ProjectException("Exam grade is invalid: " + message) {}
+        explicit ValidFinalExamGrade(const std::string& message): ProjectException("Exam grade is invalid: " + message) {}
 };
 
-
+class StudentException : public ProjectException {
+    public:
+        explicit StudentException(const std::string& message): ProjectException("Student Error: " + message) {}
+};
 
 #endif 

@@ -8,18 +8,16 @@
 
 int main(){
     //open files for reading & writing
-    std:: ifstream name_file ("NameFile.txt");
-    std:: ifstream course_file ("CourseFile.txt");
-    std:: ofstream output_flle ("Output.txt");
+    std:: ifstream name_file ("../NameFile.txt");
+    std:: ifstream course_file ("../CourseFile.txt");
+    std:: ofstream output_file ("../Output.txt");
 
     //check if file is opened 
     if (!name_file.is_open()){
-        std::cerr <<"Error: Could not open the name file" << std::endl;
-        return 1;
+        throw FileException ("Could not open name file");
     }
     if (!course_file.is_open()){
-        std::cerr <<"Error: Could not open the course file" << std::endl;
-        return 1;
+        throw FileException ("Could not open course file");
     }
 
     std:: map <std::string, Student> students;
@@ -60,6 +58,14 @@ int main(){
         //add course to the correct student
         if (students.find(id) != students.end()){
             students[id].addCourse(courseObj);
+        }
+    }
+
+    for (const auto& [id, student] : students) {
+        const std::vector<Course>& courses = student.getCourses(); 
+        for (const auto& course : courses) {
+            double final = course.calculateFinalGrade();
+            output_file << student.getStudentID() << ", " << student.getStudentName() << ", " << course.getCourseCode() << ", " << final << std::endl;
         }
     }
 

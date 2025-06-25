@@ -1,4 +1,3 @@
-cpp
 #include "student.h"
 #include <algorithm>
 #include <sstream>
@@ -220,7 +219,7 @@ std::string Student::toString() const {
     
     if (!courses.empty()) {
         oss << std::fixed << std::setprecision(1);
-        oss << "Overall Average: " << getOverallAverage() << "%\n"
+        oss << "Overall Average: " << getOverallAverage() << "%\n";
     }
     
     return oss.str();
