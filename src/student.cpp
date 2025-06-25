@@ -12,7 +12,7 @@ Student::Student() : studentID(""), studentName("") {}
 Student::Student(const std::string& id, const std::string& name) 
     : studentID(id), studentName(name) {
     
-    // ✅ Validate inputs - OFFENSIVE PROGRAMMING
+    // Validate inputs - OFFENSIVE PROGRAMMING
     validateStudentData(id, name);
     
     // Sanitize the name
@@ -44,7 +44,7 @@ void Student::validateStudentData(const std::string& id, const std::string& name
 }
 
 bool Student::isValidStudentID(const std::string& id) const {
-    // ✅ CP317 PROJECT: Accept numeric student IDs like 123456789
+    // CP317 PROJECT: Accept numeric student IDs like 123456789
     if (id.empty() || id.length() < 3 || id.length() > 15) {
         return false;
     }
@@ -120,13 +120,13 @@ void Student::setStudentName(const std::string& name) {
 // Course management
 bool Student::addCourse(const Course& course) {
     try {
-        // 🔒 Check limits - OFFENSIVE PROGRAMMING
+        // Check limits - OFFENSIVE PROGRAMMING
         if (courses.size() >= MAX_COURSES) {
             throw StudentException("Cannot add more courses. Maximum limit (" + 
                                  std::to_string(MAX_COURSES) + ") reached for student " + studentID);
         }
         
-        // ✅ Check for duplicates
+        // Check for duplicates
         if (hasCourse(course.getCourseCode())) {
             throw StudentException("Course " + course.getCourseCode() + 
                                  " already exists for student " + studentID);
