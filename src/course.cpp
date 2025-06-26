@@ -2,14 +2,21 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+#include "exceptions.h"
 
 // Default constructor
 Course::Course() : courseCode(""), test1(0.0f), test2(0.0f), test3(0.0f), finalExam(0.0f) {}
 
 // Parameterized constructor
-Course::Course(const std::string& code, float t1, float t2, float t3, float exam)
-    : courseCode(code), test1(t1), test2(t2), test3(t3), finalExam(exam) {
-    validateInputs(code, t1, t2, t3, exam);
+Course::Course(const std::string& code, float t1, float t2, float t3, float exam) {
+    CourseCodeExceptionCheck(code);    // throws CourseExceptionError
+    GradeExceptionCheck(t1, t2, t3, exam);  // throws ValidTestXGrade 
+
+    courseCode = code;
+    test1 = t1;
+    test2 = t2;
+    test3 = t3;
+    finalExam = exam;
 }
 
 // Copy constructor
@@ -66,34 +73,38 @@ bool Course::isValidScore(float score) const {
 }
 
 bool Course::isValidCourseCode(const std::string& code) const {
-    // Exact format: 2 letters + 3 digits (like CP317)
-    if (code.length() != 5) {
+    // Check basic length requirements
+    if (code.empty() || code.length() < 3 || code.length() > 10) {
         return false;
     }
     
-    // First two characters must be letters
-    if (!((code[0] >= 'A' && code[0] <= 'Z') || (code[0] >= 'a' && code[0] <= 'z'))) {
-        return false;
+    // Must contain at least one letter and one digit
+    bool hasLetter = false;
+    bool hasDigit = false;
+    
+    for (int i = 0; i < static_cast<int>(code.length()); i++) {
+        char c = code[i];
+        
+        // Check if character is a letter (A-Z, a-z)
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+            hasLetter = true;
+        }
+        // Check if character is a digit (0-9)
+        else if (c >= '0' && c <= '9') {
+            hasDigit = true;
+        }
+        // If you want to allow some special characters, modify this part
+        else if (c == '-' || c == '_' || c == ' ') {
+            // Allow these special characters
+            continue;
+        }
+        else {
+            return false;  // Reject other special characters
+        }
     }
     
-    if (!((code[1] >= 'A' && code[1] <= 'Z') || (code[1] >= 'a' && code[1] <= 'z'))) {
-        return false;
-    }
-    
-    // Last three characters must be digits
-    if (!(code[2] >= '0' && code[2] <= '9')) {
-        return false;
-    }
-    
-    if (!(code[3] >= '0' && code[3] <= '9')) {
-        return false;
-    }
-    
-    if (!(code[4] >= '0' && code[4] <= '9')) {
-        return false;
-    }
-    
-    return true;
+    // Final check: must have at least one letter and one digit
+    return hasLetter && hasDigit;
 }
 
 float Course::calculateFinalGrade() const {
@@ -102,14 +113,6 @@ float Course::calculateFinalGrade() const {
     float examPortion = finalExam * 0.40f;
     float finalGrade = testTotal + examPortion;
     
-    // Validate result
-    if (finalGrade != finalGrade) {
-        throw GradeException("Grade calculation resulted in invalid value for course: " + courseCode);
-    }
-    
-    // Clamp to valid range [0, 100]
-    if (finalGrade < 0.0f) return 0.0f;
-    if (finalGrade > 100.0f) return 100.0f;
     return finalGrade;
 }
 
@@ -136,56 +139,43 @@ float Course::getFinalExam() const {
 
 // Setters with validation
 void Course::setCourseCode(const std::string& code) {
-    if (!isValidCourseCode(code)) {
-        throw CourseException("Invalid course code: " + code);
-    }
-    courseCode = code;
+    try {
+        CourseCodeExceptionCheck(code); 
+        courseCode = code;
+    } catch (const CourseExceptionError& e) {}
 }
 
 void Course::setTest1(float score) {
-    if (!isValidScore(score)) {
-        std::ostringstream oss;
-        oss << score;
-        throw CourseException("Invalid Test 1 score: " + oss.str());
-    }
-    test1 = score;
+    try {
+        GradeExceptionCheck(score, 0, 0, 0);
+        test1 = score;
+    } catch (const ValidTest1Grade& e) {}
 }
 
 void Course::setTest2(float score) {
-    if (!isValidScore(score)) {
-        std::ostringstream oss;
-        oss << score;
-        throw CourseException("Invalid Test 2 score: " + oss.str());
-    }
-    test2 = score;
+    try {
+        GradeExceptionCheck(0, score, 0, 0);
+        test2 = score;
+    } catch (const ValidTest2Grade& e) {}
 }
 
 void Course::setTest3(float score) {
-    if (!isValidScore(score)) {
-        std::ostringstream oss;
-        oss << score;
-        throw CourseException("Invalid Test 3 score: " + oss.str());
-    }
-    test3 = score;
+    try {
+        GradeExceptionCheck(0, 0, score, 0);
+        test3 = score;
+    } catch (const ValidTest3Grade& e) {}
 }
 
 void Course::setFinalExam(float score) {
-    if (!isValidScore(score)) {
-        std::ostringstream oss;
-        oss << score;
-        throw CourseException("Invalid Final Exam score: " + oss.str());
-    }
-    finalExam = score;
+    try {
+        GradeExceptionCheck(0, 0, 0, score);
+        finalExam = score;
+    } catch (const ValidFinalExamGrade& e) {}
 }
 
 // Utility methods
 float Course::getTestAverage() const {
     return (test1 + test2 + test3) / 3.0f;
-}
-
-bool Course::hasValidGrades() const {
-    return isValidScore(test1) && isValidScore(test2) && 
-           isValidScore(test3) && isValidScore(finalExam);
 }
 
 // Comparison operators
