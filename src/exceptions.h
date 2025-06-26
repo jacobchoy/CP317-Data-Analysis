@@ -4,25 +4,23 @@
 #include <stdexcept>
 #include <string>
 
+//BASE 
 
-class ProjectException : public std:: runtime_error { //main class for exception 
+class ProjectException : public std::runtime_error { //main class for exceptions (not files) 
     public: 
         explicit ProjectException(const std::string& message): std:: runtime_error("Project Error: " + message) {}
 };
+
+//FILE STUFF 
 
 class FileException : public ProjectException { //file exception main 
     public: 
         explicit FileException(const std::string& message): ProjectException("File Error: " + message) {}
 };
 
-class CourseException : public ProjectException { //Invalid Course 
+class FileEmpty : public ProjectException { //file is empty 
     public: 
-        explicit CourseException(const std::string& message): ProjectException("Course is invalid: " + message) {}
-};
-
-class GradeException : public ProjectException { //Invalid Grade 
-    public: 
-        explicit GradeException(const std::string& message): ProjectException("This is an invalid grade: " + message) {}
+        explicit FileEmpty(const std::string& message): ProjectException("File Error: " + message) {}
 };
 
 class FileNotFoundException  : public FileException {  //file not found exception 
@@ -35,14 +33,11 @@ class FileAccessException : public FileException { //cannot access file
         explicit FileAccessException(const std::string& filename): FileException("Cannot access file: " + filename) {}
 };
 
-class ValidateStudentID : public ProjectException { //valid student id 
-    public: 
-        explicit ValidateStudentID(const std::string& message): ProjectException("This is an invalid student ID: " + message) {}
-};
+//COURSE EXCEPTIONS 
 
-class ValidateName : public ProjectException { //valid student name 
-    public:
-        explicit ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
+class CourseExceptionError : public ProjectException { //Invalid Course 
+    public: 
+        explicit CourseExceptionError(const std::string& message): ProjectException("Course is invalid: " + message) {}
 };
 
 class CheckMaxCourses : public ProjectException { //Too many courses per student max=10
@@ -60,10 +55,7 @@ class CourseInvalidGrade : public ProjectException { //Course has an invalid gra
         explicit CourseInvalidGrade(const std::string& message): ProjectException("This course has an invalid grade: " + message) {}
 };
 
-class ValidCourseCode : public ProjectException { //Course code is invalid 
-    public:
-        explicit ValidCourseCode(const std::string& message): ProjectException("This course code is invalid: " + message) {}
-};
+//GRADE EXCEPTIONS 
 
 class ValidTest1Grade : public ProjectException { //Test grade 1 is invalid 
     public:
@@ -85,9 +77,22 @@ class ValidFinalExamGrade : public ProjectException { //Exam grade is invalid
         explicit ValidFinalExamGrade(const std::string& message): ProjectException("Exam grade is invalid: " + message) {}
 };
 
-class StudentException : public ProjectException {
-    public:
-        explicit StudentException(const std::string& message): ProjectException("Student Error: " + message) {}
+//STUDENT EXCEPTIONS 
+
+class ValidateStudentID : public ProjectException { //invalid student id 
+    public: 
+        explicit ValidateStudentID(const std::string& message): ProjectException("This is an invalid student ID: " + message) {}
 };
+
+class ValidateName : public ProjectException { //invalid student name 
+    public:
+        explicit ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
+};
+
+void FileExcepitonCheck(const std::string& filename);
+void CourseCodeExceptionCheck(const std::string& code);
+void CourseStudentExceptionCheck(const Student& student);
+void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
+void ValidStudentExceptionCheck(const Student& student);
 
 #endif 

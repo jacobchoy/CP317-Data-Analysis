@@ -5,20 +5,16 @@
 #include <map>
 #include "student.h"
 #include "course.h"
+#include "exceptions.h"
 
 int main(){
-    //open files for reading & writing
-    std:: ifstream name_file ("../NameFile.txt");
-    std:: ifstream course_file ("../CourseFile.txt");
-    std:: ofstream output_file ("../Output.txt");
+    std::ifstream name_file("../NameFile.txt");
+    FileExcepitonCheck("../NameFile.txt");  
 
-    //check if file is opened 
-    if (!name_file.is_open()){
-        throw FileException ("Could not open name file");
-    }
-    if (!course_file.is_open()){
-        throw FileException ("Could not open course file");
-    }
+    std::ifstream course_file("../CourseFile.txt");
+    FileExcepitonCheck("../CourseFile.txt");
+
+    std::ofstream output_file("../Output.txt"); 
 
     std:: map <std::string, Student> students;
     std:: string line;
