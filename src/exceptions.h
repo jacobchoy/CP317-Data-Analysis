@@ -17,7 +17,7 @@ class FileException : public ProjectException { //file exception main
 
 class CourseException : public ProjectException { //Invalid Course 
     public: 
-        explict CourseException(const std::string& message): ProjectException("Course is invalid: " + message) {}
+        explicit CourseException(const std::string& message): ProjectException("Course is invalid: " + message) {}
 };
 
 class GradeException : public ProjectException { //Invalid Grade 
@@ -85,4 +85,12 @@ class ValidFinalExamGrade : public ProjectException { //Exam grade is invalid
         explicit ValidFinalExamGrade(const std::string& message): ProjectException("Exam grade is invalid: " + message) {}
 };
 
+<<<<<<< HEAD
+=======
+class StudentException : public ProjectException {
+    public:
+        explicit StudentException(const std::string& message): ProjectException("Student Error: " + message) {}
+};
+
+>>>>>>> a407a195e48c343c377e385e84889b847c0ef55a
 #endif 

@@ -23,6 +23,8 @@ class Student {
         bool studentNameCheck(const std::string& name) const;
         void validateStudentData(const std::string& id, const std::string& name) const;
         std::string sanitizeName(const std::string& name) const;
+        bool isValidStudentID(const std::string& id) const;
+        bool isValidStudentName(const std::string& name) const;
 
     public:
 

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "algorithm": "cpp",
         "atomic": "cpp",
@@ -54,4 +55,7 @@
         "xtr1common": "cpp",
         "xutility": "cpp"
     }
+=======
+  "C_Cpp_Runner.msvcBatchPath": ""
+>>>>>>> a407a195e48c343c377e385e84889b847c0ef55a
 }
