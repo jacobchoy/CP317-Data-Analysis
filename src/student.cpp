@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cctype>
+#include "exceptions.h"
 
 // Default constructor
 Student::Student() : studentID(""), studentName("") {}
@@ -11,11 +12,11 @@ Student::Student() : studentID(""), studentName("") {}
 Student::Student(const std::string& id, const std::string& name) 
     : studentID(id), studentName(name) {
     
-    // Validate inputs - OFFENSIVE PROGRAMMING
-    validateStudentData(id, name);
-    
     // Sanitize the name
     studentName = sanitizeName(name);
+
+    // Validate inputs
+    ValidStudentExceptionCheck(*this);
 }
 
 // Copy constructor
@@ -30,37 +31,6 @@ Student& Student::operator=(const Student& other) {
         courses = other.courses;
     }
     return *this;
-}
-
-void Student::validateStudentData(const std::string& id, const std::string& name) const {
-    if (!isValidStudentID(id)) {
-        throw StudentException("Invalid student ID format: " + id);
-    }
-    
-    if (!isValidStudentName(name)) {
-        throw StudentException("Invalid student name: " + name);
-    }
-}
-
-bool Student::isValidStudentID(const std::string& id) const {
-    // CP317 PROJECT: Accept numeric student IDs like 123456789
-    if (id.empty() || id.length() < 3 || id.length() > 15) {
-        return false;
-    }
-    
-    // Must be all digits as per project examples
-    return std::all_of(id.begin(), id.end(), ::isdigit);
-}
-
-bool Student::isValidStudentName(const std::string& name) const {
-    if (name.empty() || name.length() > 100) {
-        return false;
-    }
-    
-    // Name can contain letters, spaces, apostrophes, and hyphens
-    return std::all_of(name.begin(), name.end(), [](char c) {
-        return std::isalpha(c) || std::isspace(c) || c == '\'' || c == '-';
-    });
 }
 
 std::string Student::sanitizeName(const std::string& name) const {
@@ -103,46 +73,28 @@ size_t Student::getCourseCount() const {
 
 // Setters
 void Student::setStudentID(const std::string& id) {
-    if (!isValidStudentID(id)) {
-        throw StudentException("Invalid student ID: " + id);
-    }
-    studentID = id;
+    try {
+        ValidStudentExceptionCheck(Student(id, studentName));  // validate new ID 
+        studentID = id;
+    } catch (const ValidateStudentID& e) {}
 }
 
 void Student::setStudentName(const std::string& name) {
-    if (!isValidStudentName(name)) {
-        throw StudentException("Invalid student name: " + name);
-    }
-    studentName = sanitizeName(name);
+    try {
+        ValidStudentExceptionCheck(Student(studentID, name)); // validate new Name
+        studentName = sanitizeName(name);
+    } catch (const ValidateName& e) {}
 }
 
 // Course management
 bool Student::addCourse(const Course& course) {
     try {
-        // Check limits - OFFENSIVE PROGRAMMING
-        if (courses.size() >= MAX_COURSES) {
-            throw StudentException("Cannot add more courses. Maximum limit (" + 
-                                 std::to_string(MAX_COURSES) + ") reached for student " + studentID);
-        }
-        
-        // Check for duplicates
-        if (hasCourse(course.getCourseCode())) {
-            throw StudentException("Course " + course.getCourseCode() + 
-                                 " already exists for student " + studentID);
-        }
-        
-        // Validate course before adding
-        if (!course.hasValidGrades()) {
-            throw StudentException("Cannot add course with invalid grades: " + course.getCourseCode());
-        }
+        CourseStudentExceptionCheck(*this);
+        GradeExceptionCheck(course.getTest1(), course.getTest2(), course.getTest3(), course.getFinalExam());
         
         courses.push_back(course);
         return true;
-        
-    } catch (const std::exception& e) {
-        // Log error but don't throw - return false to indicate failure
-        return false;
-    }
+    } catch (const std::exception& e) {return false;}
 }
 
 bool Student::removeCourse(const std::string& courseCode) {
@@ -239,13 +191,4 @@ std::string Student::getGradeSummary() const {
     
     oss << "Overall Average: " << getOverallAverage() << "%";
     return oss.str();
-}
-
-// Validation
-bool Student::isValid() const {
-    return isValidStudentID(studentID) && isValidStudentName(studentName);
-}
-
-void Student::validate() const {
-    validateStudentData(studentID, studentName);
 }

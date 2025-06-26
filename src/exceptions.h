@@ -6,7 +6,7 @@
 
 //BASE 
 
-class ProjectException : public std:: runtime_error { //main class for exceptions (not files) 
+class ProjectException : public std::runtime_error { //main class for exceptions (not files) 
     public: 
         explicit ProjectException(const std::string& message): std:: runtime_error("Project Error: " + message) {}
 };
@@ -88,5 +88,11 @@ class ValidateName : public ProjectException { //invalid student name
     public:
         explicit ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
 };
+
+void FileExcepitonCheck(const std::string& filename);
+void CourseCodeExceptionCheck(const std::string& code);
+void CourseStudentExceptionCheck(const Student& student);
+void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
+void ValidStudentExceptionCheck(const Student& student);
 
 #endif 

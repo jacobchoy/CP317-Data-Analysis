@@ -10,11 +10,6 @@ private:
     std::string courseCode;
     float test1, test2, test3, finalExam;
     
-    // Private validation methods
-    bool isValidScore(float score) const;
-    bool isValidCourseCode(const std::string& code) const;
-    void validateInputs(const std::string& code, float t1, float t2, float t3, float exam) const;
-
 public:
     // Constructors
     Course();
@@ -47,7 +42,6 @@ public:
     
     // Utility methods
     float getTestAverage() const;
-    bool hasValidGrades() const;
     
     // Comparison operators
     bool operator==(const Course& other) const;
