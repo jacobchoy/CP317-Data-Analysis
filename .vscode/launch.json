@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/sierraoliver/Desktop/laurier/CP317 - Software Engineering/CP317-Data-Analysis",
-      "program": "/Users/sierraoliver/Desktop/laurier/CP317 - Software Engineering/CP317-Data-Analysis/build/Debug/outDebug"
+      "cwd": "/Users/sierraoliver/Desktop/laurier/CP317 - Software Engineering/CP317-Data-Analysis/src",
+      "program": "/Users/sierraoliver/Desktop/laurier/CP317 - Software Engineering/CP317-Data-Analysis/src/build/Debug/outDebug"
     }
   ]
 }

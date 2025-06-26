@@ -57,6 +57,7 @@ int main(){
         }
     }
 
+    //write students to output file
     for (const auto& [id, student] : students) {
         const std::vector<Course>& courses = student.getCourses(); 
         for (const auto& course : courses) {
