@@ -66,38 +66,34 @@ bool Course::isValidScore(float score) const {
 }
 
 bool Course::isValidCourseCode(const std::string& code) const {
-    // Check basic length requirements
-    if (code.empty() || code.length() < 3 || code.length() > 10) {
+    // Exact format: 2 letters + 3 digits (like CP317)
+    if (code.length() != 5) {
         return false;
     }
     
-    // Must contain at least one letter and one digit
-    bool hasLetter = false;
-    bool hasDigit = false;
-    
-    for (int i = 0; i < static_cast<int>(code.length()); i++) {
-        char c = code[i];
-        
-        // Check if character is a letter (A-Z, a-z)
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
-            hasLetter = true;
-        }
-        // Check if character is a digit (0-9)
-        else if (c >= '0' && c <= '9') {
-            hasDigit = true;
-        }
-        // If you want to allow some special characters, modify this part
-        else if (c == '-' || c == '_' || c == ' ') {
-            // Allow these special characters
-            continue;
-        }
-        else {
-            return false;  // Reject other special characters
-        }
+    // First two characters must be letters
+    if (!((code[0] >= 'A' && code[0] <= 'Z') || (code[0] >= 'a' && code[0] <= 'z'))) {
+        return false;
     }
     
-    // Final check: must have at least one letter and one digit
-    return hasLetter && hasDigit;
+    if (!((code[1] >= 'A' && code[1] <= 'Z') || (code[1] >= 'a' && code[1] <= 'z'))) {
+        return false;
+    }
+    
+    // Last three characters must be digits
+    if (!(code[2] >= '0' && code[2] <= '9')) {
+        return false;
+    }
+    
+    if (!(code[3] >= '0' && code[3] <= '9')) {
+        return false;
+    }
+    
+    if (!(code[4] >= '0' && code[4] <= '9')) {
+        return false;
+    }
+    
+    return true;
 }
 
 float Course::calculateFinalGrade() const {
