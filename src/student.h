@@ -12,8 +12,8 @@
 class Student {
 
     private:
-        std::string studentID
-        std::string studentName
+        std::string studentID;
+        std::string studentName;
         std::vector<Course> courses;
 
         static const size_t MAX_COURSES = 20;
