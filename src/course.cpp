@@ -36,6 +36,77 @@ Course& Course::operator=(const Course& other) {
     return *this;
 }
 
+void Course::validateInputs(const std::string& code, float t1, float t2, float t3, float exam) const {
+    if (!isValidCourseCode(code)) {
+        throw CourseException("Invalid course code format: " + code);
+    }
+    
+    if (!isValidScore(t1)) {
+        std::ostringstream oss;
+        oss << t1;
+        throw CourseException("Invalid Test 1 score: " + oss.str());
+    }
+    
+    if (!isValidScore(t2)) {
+        std::ostringstream oss;
+        oss << t2;
+        throw CourseException("Invalid Test 2 score: " + oss.str());
+    }
+    
+    if (!isValidScore(t3)) {
+        std::ostringstream oss;
+        oss << t3;
+        throw CourseException("Invalid Test 3 score: " + oss.str());
+    }
+    
+    if (!isValidScore(exam)) {
+        std::ostringstream oss;
+        oss << exam;
+        throw CourseException("Invalid Final Exam score: " + oss.str());
+    }
+}
+
+bool Course::isValidScore(float score) const {
+    // Simple validation 
+    if (score != score) return false;  // NaN check (NaN != NaN is always true)
+    return score >= 0.0f && score <= 100.0f;
+}
+
+bool Course::isValidCourseCode(const std::string& code) const {
+    // Check basic length requirements
+    if (code.empty() || code.length() < 3 || code.length() > 10) {
+        return false;
+    }
+    
+    // Must contain at least one letter and one digit
+    bool hasLetter = false;
+    bool hasDigit = false;
+    
+    for (int i = 0; i < static_cast<int>(code.length()); i++) {
+        char c = code[i];
+        
+        // Check if character is a letter (A-Z, a-z)
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+            hasLetter = true;
+        }
+        // Check if character is a digit (0-9)
+        else if (c >= '0' && c <= '9') {
+            hasDigit = true;
+        }
+        // If you want to allow some special characters, modify this part
+        else if (c == '-' || c == '_' || c == ' ') {
+            // Allow these special characters
+            continue;
+        }
+        else {
+            return false;  // Reject other special characters
+        }
+    }
+    
+    // Final check: must have at least one letter and one digit
+    return hasLetter && hasDigit;
+}
+
 float Course::calculateFinalGrade() const {
     // CP317 PROJECT REQUIREMENT: (Test1 + Test2 + Test3) × 20% + FinalExam × 40%
     float testTotal = (test1 + test2 + test3) * 0.20f;
