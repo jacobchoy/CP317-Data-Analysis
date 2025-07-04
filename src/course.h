@@ -49,6 +49,12 @@ public:
     
     // String representation
     std::string toString() const;
+    
+private:
+    // Validation methods
+    bool isValidScore(float score) const;
+    bool isValidCourseCode(const std::string& code) const;
+    void validateInputs(const std::string& code, float t1, float t2, float t3, float exam) const;
 };
 
 #endif

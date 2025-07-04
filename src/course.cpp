@@ -9,8 +9,7 @@ Course::Course() : courseCode(""), test1(0.0f), test2(0.0f), test3(0.0f), finalE
 
 // Parameterized constructor
 Course::Course(const std::string& code, float t1, float t2, float t3, float exam) {
-    CourseCodeExceptionCheck(code);    // throws CourseExceptionError
-    GradeExceptionCheck(t1, t2, t3, exam);  // throws ValidTestXGrade 
+    validateInputs(code, t1, t2, t3, exam);  // Use the existing validation method
 
     courseCode = code;
     test1 = t1;
@@ -139,38 +138,46 @@ float Course::getFinalExam() const {
 
 // Setters with validation
 void Course::setCourseCode(const std::string& code) {
-    try {
-        CourseCodeExceptionCheck(code); 
-        courseCode = code;
-    } catch (const CourseExceptionError& e) {}
+    if (!isValidCourseCode(code)) {
+        throw CourseException("Invalid course code format: " + code);
+    }
+    courseCode = code;
 }
 
 void Course::setTest1(float score) {
-    try {
-        GradeExceptionCheck(score, 0, 0, 0);
-        test1 = score;
-    } catch (const ValidTest1Grade& e) {}
+    if (!isValidScore(score)) {
+        std::ostringstream oss;
+        oss << score;
+        throw CourseException("Invalid Test 1 score: " + oss.str());
+    }
+    test1 = score;
 }
 
 void Course::setTest2(float score) {
-    try {
-        GradeExceptionCheck(0, score, 0, 0);
-        test2 = score;
-    } catch (const ValidTest2Grade& e) {}
+    if (!isValidScore(score)) {
+        std::ostringstream oss;
+        oss << score;
+        throw CourseException("Invalid Test 2 score: " + oss.str());
+    }
+    test2 = score;
 }
 
 void Course::setTest3(float score) {
-    try {
-        GradeExceptionCheck(0, 0, score, 0);
-        test3 = score;
-    } catch (const ValidTest3Grade& e) {}
+    if (!isValidScore(score)) {
+        std::ostringstream oss;
+        oss << score;
+        throw CourseException("Invalid Test 3 score: " + oss.str());
+    }
+    test3 = score;
 }
 
 void Course::setFinalExam(float score) {
-    try {
-        GradeExceptionCheck(0, 0, 0, score);
-        finalExam = score;
-    } catch (const ValidFinalExamGrade& e) {}
+    if (!isValidScore(score)) {
+        std::ostringstream oss;
+        oss << score;
+        throw CourseException("Invalid Final Exam score: " + oss.str());
+    }
+    finalExam = score;
 }
 
 // Utility methods

@@ -15,8 +15,10 @@ Student::Student(const std::string& id, const std::string& name)
     // Sanitize the name
     studentName = sanitizeName(name);
 
-    // Validate inputs
-    ValidStudentExceptionCheck(*this);
+    // Basic validation (instead of external function)
+    if (id.empty() || name.empty()) {
+        throw std::invalid_argument("Student ID and name cannot be empty");
+    }
 }
 
 // Copy constructor
@@ -73,28 +75,34 @@ size_t Student::getCourseCount() const {
 
 // Setters
 void Student::setStudentID(const std::string& id) {
-    try {
-        ValidStudentExceptionCheck(Student(id, studentName));  // validate new ID 
-        studentID = id;
-    } catch (const ValidateStudentID& e) {}
+    if (id.empty()) {
+        throw std::invalid_argument("Student ID cannot be empty");
+    }
+    studentID = id;
 }
 
 void Student::setStudentName(const std::string& name) {
-    try {
-        ValidStudentExceptionCheck(Student(studentID, name)); // validate new Name
-        studentName = sanitizeName(name);
-    } catch (const ValidateName& e) {}
+    if (name.empty()) {
+        throw std::invalid_argument("Student name cannot be empty");
+    }
+    studentName = sanitizeName(name);
 }
 
 // Course management
 bool Student::addCourse(const Course& course) {
     try {
-        CourseStudentExceptionCheck(*this);
-        GradeExceptionCheck(course.getTest1(), course.getTest2(), course.getTest3(), course.getFinalExam());
+        // Check if course already exists
+        for (const auto& c : courses) {
+            if (c.getCourseCode() == course.getCourseCode()) {
+                return false; // Course already exists
+            }
+        }
         
         courses.push_back(course);
         return true;
-    } catch (const std::exception& e) {return false;}
+    } catch (const std::exception& e) {
+        return false;
+    }
 }
 
 bool Student::removeCourse(const std::string& courseCode) {

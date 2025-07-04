@@ -4,6 +4,9 @@
 #include <stdexcept>
 #include <string>
 
+// Forward declaration to avoid circular dependency
+class Student;
+
 //BASE 
 
 class ProjectException : public std::runtime_error { //main class for exceptions (not files) 
@@ -55,6 +58,11 @@ class CourseInvalidGrade : public ProjectException { //Course has an invalid gra
         explicit CourseInvalidGrade(const std::string& message): ProjectException("This course has an invalid grade: " + message) {}
 };
 
+class CourseException : public ProjectException { //General course exception 
+    public:
+        explicit CourseException(const std::string& message): ProjectException("Course Error: " + message) {}
+};
+
 //GRADE EXCEPTIONS 
 
 class ValidTest1Grade : public ProjectException { //Test grade 1 is invalid 
@@ -91,8 +99,6 @@ class ValidateName : public ProjectException { //invalid student name
 
 void FileExcepitonCheck(const std::string& filename);
 void CourseCodeExceptionCheck(const std::string& code);
-void CourseStudentExceptionCheck(const Student& student);
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
-void ValidStudentExceptionCheck(const Student& student);
 
-#endif 
+#endif

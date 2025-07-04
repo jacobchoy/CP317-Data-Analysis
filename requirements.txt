@@ -1,0 +1,82 @@
+
+CP317 Project Requirements 2025 Spring
+May 2025
+Introduction
+The project is a group of four students work. The purpose of this project is to provide an
+opportunity for students experience what software engineering is, and to understand file input
+and output from software perspective. The evaluation of the project consists of two portions
+such that project presentation and project report. The presentation section measures your verbal
+communication skills and the understanding of software engineering, and the report section
+measures your writing communication skills and the understanding of software design document.
+Project requirements
+1. Design and develop a software application to read two text files and format the data
+output to a new file (Note: the format of input file and output file is described in Appendix
+A).
+2. The design should contain both architecture design and detailed design.
+3. The project report is a software design document (SDD) that must be your own writing,
+AI generated documents are prohibited.
+4. The SDD should contain the following sections. Each section may have subsections.
+Section number Section titles
+1 Introduction
+2 Architecture design/System design
+3 Detailed design
+4 Summary/Conclusion
+5 Reference (in APA format)
+The main portion of a SDD is detailed design.
+5. The software must use at least two of the following Object-Oriented Design features.
+(1) Inheritance, (2) Polymorphism, (3) Encapsulation, (4) Abstraction
+6. The project requires to use one of compile languages such as C++, C#, and Java (not
+scripting languages like Python, JavaScript, PHP etc.). Please refer to Appendix B for APIs
+of C++ and Java
+7. The output file must be sorted by using the student ID.
+8. Project presentation must contain both design (theory portion) and demonstrations.
+9. The software must be reliable. Your group should apply “offensive programming”
+technique which we will learn in this course. This requirement will be verified at project
+presentation section.
+Evaluation schemes
+The project will be evaluated in two sections. One is a project presentation, and the other is
+project report. The evaluation rubrics are in appendixes of CP317B course syllabus that has been
+uploaded in MyLearningSpace.
+1. Project Presentation
+You will have 6 minutes to present your group project (3 minutes theory and 3 minutes
+demonstration). The presentation material such as PowerPoint slides and your
+presentation recording must be delivered into myls for evaluation purposes.
+2. Project Report (Software Design Document (SDD))
+Write a project report (SDD) by the end of this semester. The report is a software design
+document which should contain both architecture design and detailed design.
+Notes
+1. I suggest that you start with writing the software design document (SDD) in which you
+design how the software work. After you have a draft of the SDD, you start the
+implementation.
+2. It is better to have regular meetings for the group work and to discuss the progresses
+and problems. For example, weekly meetings.
+3. It is better to divide the group project into partitions and certain individuals are
+responsible for certain parts. For example, two people focus on presentation and other
+two focus on project report.
+Appendix A
+1. The formats of the two input files NameFile.txt and CourseFile.txt are as follows.
+NameFile.txt
+Student ID Student Name
+123456789 John Hay
+223456789 Mary Smith
+.... .....
+CourseFile.txt
+Student ID Course Code Test 1 Test 2 Test 3 Final exam
+423456789 CP317 75.3 80.4 60.3 70.5
+223456789 CP414 80.2 90.5 50.4 75.6
+123456789 CP460 60.5 70.6 80.6 80.6
+.... .....
+Note 1: the student ID, student name, course code, and the grades will be separated with comma
+in the input files. The two input files will be uploaded in myls around week 7.
+Note 2: the student ID and students’ name are unique. However, one student may take multiple
+courses.
+2. The format of the output file is as follows.
+Student ID Student Name Course Code Final grade (test
+1,2,3-3x20%, final
+exam 40%
+123456789 John Hay CP460 66.7
+223456789 Mary Smith CP414 74.8
+.... ..... ......
+Note 3: each test weighs 20% and the final exam weighs 40%. The final grade is calculated with
+the following: (test,1,2,3) 3x20% + (final exam) 40% = 100%.
+Note 4: all the grades should be decimal number with one digital after the dot.
