@@ -90,18 +90,13 @@ void Student::setStudentName(const std::string& name) {
 
 // Course management
 bool Student::addCourse(const Course& course) {
-    try {
-        // Check if course already exists
-        for (const auto& c : courses) {
-            if (c.getCourseCode() == course.getCourseCode()) {
-                return false; // Course already exists
-            }
-        }
-        
-        courses.push_back(course);
-        return true;
-    } catch (const std::exception& e) {
-        return false;
+    courses.push_back(course);
+    try{
+        CourseStudentExceptionCheck(*this);
+    }
+    catch(const CourseAlreadyExists& e){
+        courses.pop_back();
+        throw;
     }
 }
 

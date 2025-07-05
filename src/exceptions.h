@@ -103,6 +103,7 @@ class ValidateName : public ProjectException { //invalid student name
 
 void FileExceptionCheck(const std::string& filename);
 void CourseCodeExceptionCheck(const std::string& code);
+void CourseStudentExceptionCheck(const Student& student);
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
 void SingleGradeExceptionCheck(const float score);
 

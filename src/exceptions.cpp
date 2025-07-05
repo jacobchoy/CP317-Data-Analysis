@@ -34,11 +34,11 @@ void CourseStudentExceptionCheck(const Student& student) { //handles student cou
     if (student.getCourseCount() > 10)
         throw CheckMaxCourses("Limit Reached for student (" + student.getStudentID() + ")");
 
-    int size = student.getCourseCount() - 1;
+    int size = student.getCourseCount();
 
     for (int i = 0; i < size; ++i) {
         for (int j = i + 1; j < size; ++j) {
-            if (student.getCourses()[i] == student.getCourses()[j]) { 
+            if (student.getCourses()[i] == student.getCourses()[j]) {
                 throw CourseAlreadyExists("Duplicate course found: " + student.getCourses()[i].getCourseCode());
             }
         }
