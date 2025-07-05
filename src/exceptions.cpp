@@ -5,7 +5,7 @@
 #include <cctype>
 #include "student.h"
 
-void FileExcepitonCheck(const std::string& filename) { //handles all file exceptions 
+void FileExceptionCheck(const std::string& filename) { //handles all file exceptions 
     if (filename.empty()) 
         throw FileEmpty(filename);
 

@@ -97,7 +97,7 @@ class ValidateName : public ProjectException { //invalid student name
         explicit ValidateName(const std::string& message): ProjectException("This is an invalid student name: " + message) {}
 };
 
-void FileExcepitonCheck(const std::string& filename);
+void FileExceptionCheck(const std::string& filename);
 void CourseCodeExceptionCheck(const std::string& code);
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
 
