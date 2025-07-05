@@ -37,31 +37,31 @@ class FileAccessException : public FileException { //cannot access file
 };
 
 //COURSE EXCEPTIONS 
-
-class CourseExceptionError : public ProjectException { //Invalid Course 
-    public: 
-        explicit CourseExceptionError(const std::string& message): ProjectException("Course is invalid: " + message) {}
-};
-
-class CheckMaxCourses : public ProjectException { //Too many courses per student max=10
-    public:
-        explicit CheckMaxCourses(const std::string& message): ProjectException("Too many courses for student: " + message) {}
-};
-
-class CourseAlreadyExists : public ProjectException { //This course already exists 
-    public:
-        explicit CourseAlreadyExists(const std::string& message): ProjectException("This course already exists: " + message) {}
-};
-
-class CourseInvalidGrade : public ProjectException { //Course has an invalid grade 
-    public:
-        explicit CourseInvalidGrade(const std::string& message): ProjectException("This course has an invalid grade: " + message) {}
-};
-
 class CourseException : public ProjectException { //General course exception 
     public:
         explicit CourseException(const std::string& message): ProjectException("Course Error: " + message) {}
 };
+
+class CourseExceptionError : public CourseException { //Invalid Course 
+    public: 
+        explicit CourseExceptionError(const std::string& message): CourseException("Course is invalid: " + message) {}
+};
+
+class CheckMaxCourses : public CourseException { //Too many courses per student max=10
+    public:
+        explicit CheckMaxCourses(const std::string& message): CourseException("Too many courses for student: " + message) {}
+};
+
+class CourseAlreadyExists : public CourseException { //This course already exists 
+    public:
+        explicit CourseAlreadyExists(const std::string& message): CourseException("This course already exists: " + message) {}
+};
+
+class CourseInvalidGrade : public CourseException { //Course has an invalid grade 
+    public:
+        explicit CourseInvalidGrade(const std::string& message): CourseException("This course has an invalid grade: " + message) {}
+};
+
 
 //GRADE EXCEPTIONS 
 class ValidGrade: public ProjectException{
