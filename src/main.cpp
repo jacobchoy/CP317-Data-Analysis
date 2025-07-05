@@ -13,9 +13,6 @@
 #include "filewriter.h"
 
 // Function prototypes
-bool readNameFile(const std::string& filename, std::map<std::string, Student>& students);
-bool readCourseFile(const std::string& filename, std::map<std::string, Student>& students);
-bool writeOutputFile(const std::string& filename, const std::map<std::string, Student>& students);
 std::vector<std::string> split(const std::string& str, char delimiter);
 std::string trim(const std::string& str);
 
@@ -31,7 +28,7 @@ int main() {
         std::cout << "Reading NameFile.txt..." << std::endl;
         FileReader nameFile ("../NameFile.txt");
         if (!nameFile.readNameFile(students)){
-            std::cerr << "Error: Failed to read NameFile.txt" << std::endl;
+            std::cerr << "Error: Failed to read " << nameFile.getFileName() <<std::endl;
             return 1;
         }
         std::cout << "Successfully read " << students.size() << " students" << std::endl;
@@ -40,7 +37,7 @@ int main() {
         std::cout << "Reading CourseFile.txt..." << std::endl;
         FileReader courseFile ("../CourseFile.txt");
         if (!courseFile.readCourseFile(students)) {
-            std::cerr << "Error: Failed to read CourseFile.txt" << std::endl;
+            std::cerr << "Error: Failed to read " << courseFile.getFileName()<<std::endl;
             return 1;
         }
         
@@ -55,7 +52,7 @@ int main() {
         std::cout << "Writing Output.txt..." << std::endl;
         FileWriter outputFile ("../Output.txt");
         if (!outputFile.writeOutputFile(students)) {
-            std::cerr << "Error: Failed to write Output.txt" << std::endl;
+            std::cerr << "Error: Failed to write " << outputFile.getFileName() <<std::endl;
             return 1;
         }
         

@@ -53,7 +53,7 @@ bool FileWriter::writeOutputFile(const std::map<std::string, Student>& students)
         const std::vector<Course>& courses = student.getCourses(); 
         for (const auto& course : courses) {
             double final = course.calculateFinalGrade();
-            outputFile << student.getStudentID() << ", " << student.getStudentName() << ", " << course.getCourseCode() << ", " << final << std::endl;
+            outputFile << student.getStudentID() << ", " << student.getStudentName() << ", " << course.getCourseCode() << ", " << std::fixed << std::setprecision(1) << final << std::endl;
         }
     }
     

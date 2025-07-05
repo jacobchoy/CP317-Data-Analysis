@@ -71,6 +71,12 @@ void GradeExceptionCheck(const float t1, float t2, float t3, float exam) { //che
     std::cout << "The grades been checked and verified successfully. \n";
 }
 
+void SingleGradeExceptionCheck (const float score){
+    if (score > 100 || score < 0) 
+        throw ValidGrade("Out of Range: " + std::to_string(score));
+    std::cout << "The grade has been checked and verified successfully. \n";
+}
+
 void ValidStudentExceptionCheck(const Student& student) { //handles student id exceptions
     if (student.getStudentID().length() > 9) 
         throw ValidateStudentID("The student " + student.getStudentName());

@@ -64,6 +64,10 @@ class CourseException : public ProjectException { //General course exception
 };
 
 //GRADE EXCEPTIONS 
+class ValidGrade: public ProjectException{
+    public:
+        explicit ValidGrade(const std::string& message): ProjectException("Grade is invalid: " + message) {}
+};
 
 class ValidTest1Grade : public ProjectException { //Test grade 1 is invalid 
     public:
@@ -100,5 +104,6 @@ class ValidateName : public ProjectException { //invalid student name
 void FileExceptionCheck(const std::string& filename);
 void CourseCodeExceptionCheck(const std::string& code);
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
+void SingleGradeExceptionCheck(const float score);
 
 #endif
