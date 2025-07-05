@@ -78,11 +78,11 @@ void SingleGradeExceptionCheck (const float score){
 }
 
 void ValidStudentExceptionCheck(const Student& student) { //handles student id exceptions
-    if (student.getStudentID().length() > 9) 
+    if (student.getStudentID().length() != 9) 
         throw ValidateStudentID("The student " + student.getStudentName());
 
     if (student.getStudentName().empty() || student.getStudentName().length() > 100) 
-        throw ValidateName("Student name of (" + student.getStudentID() + ")");
+        throw ValidateName("Student name with ID: " + student.getStudentID());
 
     std::cout << "The student has been checked and verified successfully. \n";
 }

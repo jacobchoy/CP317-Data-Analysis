@@ -151,8 +151,8 @@ void testGradeExceptionCheck(){
     try{
         GradeExceptionCheck(-1,200,-90,101);
     }
-    catch(const ValidTest1Grade& e){
-        std::cout<<"PASS: Caught expected ValidTest1Grade "<< e.what() <<std::endl;
+    catch(const ValidGrade& e){
+        std::cout<<"PASS: Caught expected ValidGrade "<< e.what() <<std::endl;
     }
     catch(...){
         std::cout<<"FAIL: Caught unexpected error"<<std::endl;
@@ -163,8 +163,8 @@ void testGradeExceptionCheck(){
     try{
         GradeExceptionCheck(100,200,-90,101);
     }
-    catch(const ValidTest2Grade& e){
-        std::cout<<"PASS: Caught expected ValidTest2Grade "<< e.what() <<std::endl;
+    catch(const ValidGrade& e){
+        std::cout<<"PASS: Caught expected ValidGrade "<< e.what() <<std::endl;
     }
     catch(...){
         std::cout<<"FAIL: Caught unexpected error"<<std::endl;
@@ -176,8 +176,8 @@ void testGradeExceptionCheck(){
     try{
         GradeExceptionCheck(0,6,-90,101);
     }
-    catch(const ValidTest3Grade& e){
-        std::cout<<"PASS: Caught expected ValidTest3Grade "<< e.what() <<std::endl;
+    catch(const ValidGrade& e){
+        std::cout<<"PASS: Caught expected ValidGrade "<< e.what() <<std::endl;
     }
     catch(...){
         std::cout<<"FAIL: Caught unexpected error"<<std::endl;
@@ -188,15 +188,76 @@ void testGradeExceptionCheck(){
     try{
         GradeExceptionCheck(50,60,90,101);
     }
-    catch(const ValidFinalExamGrade& e){
-        std::cout<<"PASS: Caught expected ValidExamGrade "<< e.what() <<std::endl;
+    catch(const ValidGrade& e){
+        std::cout<<"PASS: Caught expected ValidGrade "<< e.what() <<std::endl;
     }
     catch(...){
         std::cout<<"FAIL: Caught unexpected error"<<std::endl;
     }
 
+    std::cout<<"\n";
 
 }
+
+void testValidStudentExceptionCheck(){
+    std::cout<<"--------TESTING STUDENT EXCEPTION CHECK--------"<<std::endl;
+    std::cout<<"\n";
+
+    std::cout<<"--------Testing Too Long ID--------"<<std::endl;
+    try{
+        Student s ("1234567890", "Alice");
+        ValidStudentExceptionCheck(s);
+    }
+    catch(const ValidateStudentID& e){
+        std::cout<<"PASS: Caught expected ValidateStudentID "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Empty ID--------"<<std::endl;
+    try{
+        Student s ("", "Name");
+        ValidStudentExceptionCheck(s);
+    }
+    catch(const ValidateStudentID& e){
+        std::cout<<"PASS: Caught expected ValidateStudentID "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Too Long Name--------"<<std::endl;
+    try{
+        std::string longString(150, 'A');
+        Student s ("123456789", longString);
+        ValidStudentExceptionCheck(s);
+    }
+    catch(const ValidateName& e){
+        std::cout<<"PASS: Caught expected ValidateName "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Empty Name--------"<<std::endl;
+    try{
+        Student s ("123456789", "");
+        ValidStudentExceptionCheck(s);
+    }
+    catch(const ValidateName& e){
+        std::cout<<"PASS: Caught expected ValidateName "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+}
+
 
 int main() {
     //create student objects
@@ -220,6 +281,7 @@ int main() {
     testCourseCodeExceptionCheck(incorrectCodes, length);
     testCourseStudentExceptionCheck(maxCodes);
     testGradeExceptionCheck();
+    testValidStudentExceptionCheck();
 
 
     return 0;

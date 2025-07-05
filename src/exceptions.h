@@ -82,5 +82,6 @@ void CourseCodeExceptionCheck(const std::string& code);
 void CourseStudentExceptionCheck(const Student& student);
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam);
 void SingleGradeExceptionCheck(const float score);
+void ValidStudentExceptionCheck(const Student& student);
 
 #endif

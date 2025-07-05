@@ -15,10 +15,7 @@ Student::Student(const std::string& id, const std::string& name)
     // Sanitize the name
     studentName = sanitizeName(name);
 
-    // Basic validation (instead of external function)
-    if (id.empty() || name.empty()) {
-        throw std::invalid_argument("Student ID and name cannot be empty");
-    }
+    ValidStudentExceptionCheck(*this);
 }
 
 // Copy constructor
