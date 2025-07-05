@@ -60,13 +60,13 @@ void CourseStudentExceptionCheck(const Student& student) { //handles student cou
 
 void GradeExceptionCheck(const float t1, float t2, float t3, float exam) { //checks for valid grades 
     if (t1 > 100 || t1 < 0) 
-        throw ValidTest1Grade("Out of Range: " + std::to_string(t1));
+        throw ValidGrade("Out of Range: " + std::to_string(t1));
     if (t2 > 100 || t2 < 0) 
-        throw ValidTest2Grade("Out of Range: " + std::to_string(t2));
+        throw ValidGrade("Out of Range: " + std::to_string(t2));
     if (t3 > 100 || t3 < 0) 
-        throw ValidTest3Grade("Out of Range: " + std::to_string(t3));
+        throw ValidGrade("Out of Range: " + std::to_string(t3));
     if (exam > 100 || exam < 0) 
-        throw ValidFinalExamGrade("Out of Range: " + std::to_string(exam));
+        throw ValidGrade("Out of Range: " + std::to_string(exam));
 
     std::cout << "The grades been checked and verified successfully. \n";
 }

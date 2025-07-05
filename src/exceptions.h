@@ -8,14 +8,12 @@
 class Student;
 
 //BASE 
-
 class ProjectException : public std::runtime_error { //main class for exceptions (not files) 
     public: 
         explicit ProjectException(const std::string& message): std:: runtime_error("Project Error: " + message) {}
 };
 
 //FILE STUFF 
-
 class FileException : public ProjectException { //file exception main 
     public: 
         explicit FileException(const std::string& message): ProjectException("File Error: " + message) {}
@@ -62,35 +60,13 @@ class CourseInvalidGrade : public CourseException { //Course has an invalid grad
         explicit CourseInvalidGrade(const std::string& message): CourseException("This course has an invalid grade: " + message) {}
 };
 
-
 //GRADE EXCEPTIONS 
 class ValidGrade: public ProjectException{
     public:
         explicit ValidGrade(const std::string& message): ProjectException("Grade is invalid: " + message) {}
 };
 
-class ValidTest1Grade : public ProjectException { //Test grade 1 is invalid 
-    public:
-        explicit ValidTest1Grade(const std::string& message): ProjectException("Test grade 1 is invalid: " + message) {}
-};
-
-class ValidTest2Grade : public ProjectException { //Test grade 2 is invalid 
-    public:
-        explicit ValidTest2Grade(const std::string& message): ProjectException("Test grade 2 is invalid: " + message) {}
-};
-
-class ValidTest3Grade : public ProjectException { //Test grade 3 is invalid 
-    public:
-        explicit ValidTest3Grade(const std::string& message): ProjectException("Test grade 3 is invalid: " + message) {}
-};
-
-class ValidFinalExamGrade : public ProjectException { //Exam grade is invalid 
-    public:
-        explicit ValidFinalExamGrade(const std::string& message): ProjectException("Exam grade is invalid: " + message) {}
-};
-
 //STUDENT EXCEPTIONS 
-
 class ValidateStudentID : public ProjectException { //invalid student id 
     public: 
         explicit ValidateStudentID(const std::string& message): ProjectException("This is an invalid student ID: " + message) {}
