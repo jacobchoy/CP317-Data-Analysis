@@ -124,6 +124,7 @@ void testCourseStudentExceptionCheck(std::string codes[]){
 
     std::cout<<"\n";
 
+    std::cout<<"--------Testing Duplicate Courses Added--------"<<std::endl;
     Student s ("123456789", "Freddie Mercury");
     Course c ("CP317", 34.5,50,98,70);
     s.addCourse(c);
@@ -137,6 +138,63 @@ void testCourseStudentExceptionCheck(std::string codes[]){
     catch(...){
         std::cout<<"FAIL: Caught unexpected error"<<std::endl;
     }
+
+    std::cout<<"\n";
+
+}
+
+void testGradeExceptionCheck(){
+    std::cout<<"--------TESTING GRADE EXCEPTION CHECK--------"<<std::endl;
+    std::cout<<"\n";
+
+    std::cout<<"--------Testing Invalid t1--------"<<std::endl;
+    try{
+        GradeExceptionCheck(-1,200,-90,101);
+    }
+    catch(const ValidTest1Grade& e){
+        std::cout<<"PASS: Caught expected ValidTest1Grade "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Invalid t2--------"<<std::endl;
+    try{
+        GradeExceptionCheck(100,200,-90,101);
+    }
+    catch(const ValidTest2Grade& e){
+        std::cout<<"PASS: Caught expected ValidTest2Grade "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Invalid t3--------"<<std::endl;
+    try{
+        GradeExceptionCheck(0,6,-90,101);
+    }
+    catch(const ValidTest3Grade& e){
+        std::cout<<"PASS: Caught expected ValidTest3Grade "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
+    std::cout<<"\n";
+    std::cout<<"--------Testing Invalid exam--------"<<std::endl;
+    try{
+        GradeExceptionCheck(50,60,90,101);
+    }
+    catch(const ValidFinalExamGrade& e){
+        std::cout<<"PASS: Caught expected ValidExamGrade "<< e.what() <<std::endl;
+    }
+    catch(...){
+        std::cout<<"FAIL: Caught unexpected error"<<std::endl;
+    }
+
 
 }
 
@@ -161,6 +219,7 @@ int main() {
     testFileExceptionCheck();
     testCourseCodeExceptionCheck(incorrectCodes, length);
     testCourseStudentExceptionCheck(maxCodes);
+    testGradeExceptionCheck();
 
 
     return 0;
