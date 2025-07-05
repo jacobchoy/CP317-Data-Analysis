@@ -10,6 +10,7 @@
 #include "course.h"
 #include "exceptions.h"
 #include "filereader.h"
+#include "filewriter.h"
 
 // Function prototypes
 bool readNameFile(const std::string& filename, std::map<std::string, Student>& students);
@@ -52,7 +53,8 @@ int main() {
         
         // Write output file
         std::cout << "Writing Output.txt..." << std::endl;
-        if (!writeOutputFile("Output.txt", students)) {
+        FileWriter outputFile ("../Output.txt");
+        if (!outputFile.writeOutputFile(students)) {
             std::cerr << "Error: Failed to write Output.txt" << std::endl;
             return 1;
         }
@@ -66,56 +68,6 @@ int main() {
     }
     
     return 0;
-}
-
-bool writeOutputFile(const std::string& filename, const std::map<std::string, Student>& students) {
-    std::ofstream file(filename);
-    if (!file.is_open()) {
-        std::cerr << "Cannot create output file: " << filename << std::endl;
-        return false;
-    }
-    
-    // Create a vector of all student-course combinations for sorting
-    struct StudentCourseRecord {
-        std::string studentID;
-        std::string studentName;
-        std::string courseCode;
-        double finalGrade;
-    };
-    
-    std::vector<StudentCourseRecord> records;
-    
-    // Collect all records
-    for (const auto& [id, student] : students) {
-        const std::vector<Course>& courses = student.getCourses();
-        for (const auto& course : courses) {
-            StudentCourseRecord record;
-            record.studentID = student.getStudentID();
-            record.studentName = student.getStudentName();
-            record.courseCode = course.getCourseCode();
-            record.finalGrade = course.calculateFinalGrade();
-            records.push_back(record);
-        }
-    }
-    
-    // Sort by student ID (requirement #7)
-    std::sort(records.begin(), records.end(), 
-              [](const StudentCourseRecord& a, const StudentCourseRecord& b) {
-                  return a.studentID < b.studentID;
-              });
-    
-    // Write records to file
-    file << std::fixed << std::setprecision(1);
-    for (const auto& record : records) {
-        file << record.studentID << ", " 
-             << record.studentName << ", " 
-             << record.courseCode << ", " 
-             << record.finalGrade << std::endl;
-    }
-    
-    file.close();
-    std::cout << "Wrote " << records.size() << " records to " << filename << std::endl;
-    return true;
 }
 
 std::vector<std::string> split(const std::string& str, char delimiter) {
