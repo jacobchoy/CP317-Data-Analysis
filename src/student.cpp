@@ -88,13 +88,7 @@ void Student::setStudentName(const std::string& name) {
 // Course management
 bool Student::addCourse(const Course& course) {
     courses.push_back(course);
-    try{
-        CourseStudentExceptionCheck(*this);
-    }
-    catch(const CourseAlreadyExists& e){
-        courses.pop_back();
-        throw;
-    }
+    CourseStudentExceptionCheck(*this);
 }
 
 bool Student::removeCourse(const std::string& courseCode) {
