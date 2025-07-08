@@ -16,6 +16,12 @@ class Student {
         std::string studentName;
         std::vector<Course> courses;
 
+        static const size_t MAX_COURSES = 10;
+
+
+        bool studentIdCheck(const std::string& id) const;
+        bool studentNameCheck(const std::string& name) const;
+        void validateStudentData(const std::string& id, const std::string& name) const;
         std::string sanitizeName(const std::string& name) const;
 
     public:
@@ -51,6 +57,9 @@ class Student {
     
     std::string toString() const;
     std::string getGradeSummary() const;
+    
+    bool isValid() const;
+    void validate() const;
 };
 
 #endif

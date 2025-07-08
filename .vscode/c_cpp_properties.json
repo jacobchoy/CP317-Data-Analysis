@@ -1,17 +1,18 @@
 {
   "configurations": [
     {
-      "name": "macos-clang-x64",
+      "name": "Win32",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**",
+        "C:/msys64/ucrt64/include",
+        "C:/msys64/ucrt64/include/c++/12.2.0",         // adjust the version if different
+        "C:/msys64/ucrt64/include/c++/12.2.0/x86_64-w64-mingw32", // same here
+        "C:/msys64/ucrt64/x86_64-w64-mingw32/include"
       ],
-      "compilerPath": "/usr/bin/clang",
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "macos-clang-x64",
-      "compilerArgs": [
-        ""
-      ]
+      "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64"
     }
   ],
   "version": 4
