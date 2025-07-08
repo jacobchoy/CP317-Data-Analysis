@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <iomanip>
 
 extern std::string trim(const std::string&);
 extern std::vector<std::string> split(const std::string&, char);
@@ -30,15 +31,13 @@ void FileWriter::setFileName(const std::string& name){
     fileName = name;
 }
 
-void FileWriter::setFile(const std::string& filename) {
-    fileName = filename;
-    FileExceptionCheck(filename);
-    if (outputFile.is_open()){
-        outputFile.close();
-    }
-    outputFile.open(filename);
+void FileWriter::setFile(const std::string& name) {
+    fileName = name;
+    FileExceptionCheck(fileName);
+
+    outputFile.open(fileName);
     if (!outputFile.is_open()) {
-        throw FileAccessException(filename);
+        throw FileAccessException(fileName);
     }
 }
 

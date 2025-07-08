@@ -45,6 +45,9 @@ float Course::calculateFinalGrade() const {
     float testTotal = (test1 + test2 + test3) * 0.20f;
     float examPortion = finalExam * 0.40f;
     float finalGrade = testTotal + examPortion;
+
+    finalGrade = static_cast<int>(finalGrade * 100) / 100.0f;
+
     
     return finalGrade;
 }

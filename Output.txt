@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 113820457, Emre Lowry, ST494, 68.6
 113820457, Emre Lowry, ST259, 62.4
 119616823, Mehreen Franks, ST494, 72.2
@@ -48,3 +49,5 @@
 620731804, Rudy Begum, PS263, 69.4
 642176077, Teddy Hyde, PS263, 76.8
 642176077, Teddy Hyde, BI110, 69.0
+=======
+>>>>>>> 486a1f3e959984b5a3a7f0e8cd40c85cc29ce7b1
