@@ -12,6 +12,8 @@
                 "${workspaceFolder}/src/FileReader.cpp",
                 "${workspaceFolder}/src/FileWriter.cpp",
                 "${workspaceFolder}/src/Student.cpp",
+                "${workspaceFolder}/src/Course.cpp",
+
                 "-o",
                 "${workspaceFolder}/src/main.exe"
             ],
