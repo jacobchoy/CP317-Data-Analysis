@@ -89,6 +89,7 @@ void Student::setStudentName(const std::string& name) {
 bool Student::addCourse(const Course& course) {
     courses.push_back(course);
     CourseStudentExceptionCheck(*this);
+    return true;   
 }
 
 bool Student::removeCourse(const std::string& courseCode) {
