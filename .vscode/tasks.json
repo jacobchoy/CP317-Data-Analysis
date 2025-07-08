@@ -13,6 +13,8 @@
                 "${workspaceFolder}/src/FileWriter.cpp",
                 "${workspaceFolder}/src/Student.cpp",
                 "${workspaceFolder}/src/Course.cpp",
+                "${workspaceFolder}/src/exceptions.cpp",
+
 
                 "-o",
                 "${workspaceFolder}/src/main.exe"
