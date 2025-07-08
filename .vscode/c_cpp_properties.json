@@ -1,19 +1,19 @@
 {
-  "configurations": [
-    {
-      "name": "Win32",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "C:/msys64/ucrt64/include",
-        "C:/msys64/ucrt64/include/c++/12.2.0",         // adjust the version if different
-        "C:/msys64/ucrt64/include/c++/12.2.0/x86_64-w64-mingw32", // same here
-        "C:/msys64/ucrt64/x86_64-w64-mingw32/include"
-      ],
-      "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
-      "cStandard": "c11",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "gcc-x64"
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/msys64/ucrt64/include",
+                "C:/msys64/ucrt64/include/c++/12.2.0",
+                "C:/msys64/ucrt64/include/c++/12.2.0/x86_64-w64-mingw32",
+                "C:/msys64/ucrt64/x86_64-w64-mingw32/include"
+            ],
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
 }
